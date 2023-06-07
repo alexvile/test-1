@@ -43,9 +43,6 @@ export default function HomePage() {
     },
   };
   const [banner, setBanner] = useState(true);
-  // const [oneTimeBanner, setOneTimeBanner] = useState(
-  //   () => JSON.parse(window.localStorage.getItem("successBanner")) ?? true
-  // );
   const [billingModal, setBillingModal] = useState(false);
 
   const secondaryActions = [
@@ -80,10 +77,6 @@ export default function HomePage() {
   const hideBanner = () => {
     setBanner(false);
   };
-  // const hideOneTimeBanner = () => {
-  //   localStorage.setItem("successBanner", false);
-  //   setOneTimeBanner(false);
-  // };
 
   return (
     <>
