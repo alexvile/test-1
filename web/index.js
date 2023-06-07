@@ -3,10 +3,13 @@ import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
+import { connectMongo } from "./db/connection.js";
 
 import shopify from "./utils/shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+import { checkoutRouter } from "./routes/checkout.routes.js";
+import { billingRoute } from "./routes/billing.routes.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -17,6 +20,8 @@ const STATIC_PATH =
   process.env.NODE_ENV === "production"
     ? `${process.cwd()}/frontend/dist`
     : `${process.cwd()}/frontend/`;
+
+connectMongo();
 
 const app = express();
 
@@ -38,6 +43,9 @@ app.post(
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
+app.get("/api/billing", billingRoute);
+
+app.use("/api", checkoutRouter);
 
 app.get("/api/products/count", async (_req, res) => {
   const countData = await shopify.api.rest.Product.count({

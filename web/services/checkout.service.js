@@ -1,5 +1,3 @@
-import { Session } from "@shopify/shopify-api";
-import { Response } from "express";
 
 import shopify from "../utils/shopify.js";
 import {
