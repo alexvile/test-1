@@ -19,6 +19,9 @@ export default function HomePage() {
   const { t } = useTranslation();
   return (
     <Page narrowWidth>
+      <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
       <TitleBar title={t("HomePage.title")} primaryAction={null} />
       <Layout>
         <Layout.Section>
