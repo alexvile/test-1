@@ -7,7 +7,8 @@ import { connectMongo } from "./db/connection.js";
 
 import shopify from "./utils/shopify.js";
 import productCreator from "./product-creator.js";
-import GDPRWebhookHandlers from "./gdpr.js";
+import GDPRWebhookHandlers from "./webhooks/gdpr.js";
+import customWebhookHandlers from "./webhooks/custom.js";
 import { checkoutRouter } from "./routes/checkout.routes.js";
 import { billingRoute } from "./routes/billing.routes.js";
 
@@ -34,7 +35,9 @@ app.get(
 );
 app.post(
   shopify.config.webhooks.path,
-  shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers })
+  shopify.processWebhooks({ 
+    webhookHandlers: {...GDPRWebhookHandlers, ...customWebhookHandlers }
+  })
 );
 
 // If you are adding routes outside of the /api path, remember to
