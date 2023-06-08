@@ -810,8 +810,6 @@ export function useCustomizeData() {
       console.log("Shop all info", json);
       setAppVersion(json.userInfo.version);
       setStorePlan(json.userInfo.shopifyPlan);
-      // setAppVersion("demo");
-      // setStorePlan("Shopify Plus");
       setLoading(false);
     } else {
       console.log('error during getting shop info')
